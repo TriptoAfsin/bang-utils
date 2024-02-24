@@ -1,0 +1,38 @@
+{
+  "name": "bang-utils",
+  "version": "1.0.0",
+  "description": "Useful utility functions for various bengali language related conversions",
+  "keywords": [
+    "bangla",
+    "bangla number",
+    "TS",
+    "bengali",
+    "bangla word",
+    "english to bangla"
+  ],
+  "author": "Tripto Afsin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TriptoAfsin/bang-utils.git"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup",
+    "prepublish": "tsc"
+  },
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  }
+}
