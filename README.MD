@@ -20,7 +20,13 @@ bang-utils is a lightweight utility library for converting English numerals and 
 You can install bang-utils via npm or yarn:
 
 ```bash
-npm install bang-util
+npm install bang-utils
+```
+
+or
+
+```bash
+yarn add bang-utils
 ```
 
 ## Usage
