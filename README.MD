@@ -1,6 +1,6 @@
 ## bang-utils
 
-<p align="center"><img src="./bang-utils-logo.png" width="256px" alt="Logo"></img></p>
+<p align="center"><img src="https://raw.githubusercontent.com/TriptoAfsin/bang-utils/main/bang-utils-logo.png" width="256px" alt="Logo"></img></p>
 
 ## Description
 
