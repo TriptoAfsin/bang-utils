@@ -30,12 +30,62 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  currencyToBang: () => currencyToBang_default,
   dateBang: () => dateBang_default,
+  dayBang: () => dayBang_default,
   monthBang: () => monthBang_default,
   numBang: () => numBang_default,
-  numToBanglaWords: () => numToBanglaWords_default
+  numToBanglaWords: () => numToBanglaWords_default,
+  timeBang: () => timeBang_default
 });
 module.exports = __toCommonJS(src_exports);
+
+// src/utils/currencyToBang.ts
+var numMap = {
+  0: "\u09E6",
+  1: "\u09E7",
+  2: "\u09E8",
+  3: "\u09E9",
+  4: "\u09EA",
+  5: "\u09EB",
+  6: "\u09EC",
+  7: "\u09ED",
+  8: "\u09EE",
+  9: "\u09EF"
+};
+var currencyToBang = (num = "09") => {
+  try {
+    const splitNums = num == null ? void 0 : num.toString().split(".");
+    if (!splitNums)
+      throw new Error("Invalid input");
+    const integerPart = splitNums[0].split("");
+    const decimalPart = splitNums[1] ? splitNums[1].split("") : [];
+    const integerBnNums = [];
+    for (let i = 0; i < integerPart.length; i++) {
+      const bnNum = numMap[parseInt(integerPart[i])];
+      if (bnNum) {
+        integerBnNums.push(bnNum);
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+    let decimalBnNums = "";
+    for (let i = 0; i < decimalPart.length; i++) {
+      const bnNum = numMap[parseInt(decimalPart[i])];
+      if (bnNum) {
+        decimalBnNums += bnNum;
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+    const result = integerBnNums.join("") + " \u099F\u09BE\u0995\u09BE" + (decimalBnNums ? ` ${decimalBnNums} \u09AA\u09DF\u09B8\u09BE` : " ");
+    return result;
+  } catch (error) {
+    console.error("Error converting currency to Bangla:", error);
+    return "";
+  }
+};
+var currencyToBang_default = currencyToBang;
 
 // src/utils/dateBang.ts
 var import_dayjs2 = __toESM(require("dayjs"));
@@ -82,7 +132,7 @@ var monthBang = (date = "9") => {
 var monthBang_default = monthBang;
 
 // src/utils/numBang.ts
-var numMap = {
+var numMap2 = {
   0: "\u09E6",
   1: "\u09E7",
   2: "\u09E8",
@@ -94,7 +144,7 @@ var numMap = {
   8: "\u09EE",
   9: "\u09EF"
 };
-var numBang = (num = "09") => {
+var numberParser = (num = "09") => {
   try {
     const splitNums = num == null ? void 0 : num.toString().split(".");
     if (!splitNums)
@@ -103,7 +153,7 @@ var numBang = (num = "09") => {
     const decimalPart = splitNums[1] ? splitNums[1].split("") : [];
     const integerBnNums = [];
     for (let i = 0; i < integerPart.length; i++) {
-      const bnNum = numMap[parseInt(integerPart[i])];
+      const bnNum = numMap2[parseInt(integerPart[i])];
       if (bnNum) {
         integerBnNums.push(bnNum);
       } else {
@@ -112,7 +162,7 @@ var numBang = (num = "09") => {
     }
     let decimalBnNums = "";
     for (let i = 0; i < decimalPart.length; i++) {
-      const bnNum = numMap[parseInt(decimalPart[i])];
+      const bnNum = numMap2[parseInt(decimalPart[i])];
       if (bnNum) {
         decimalBnNums += bnNum;
       } else {
@@ -124,6 +174,15 @@ var numBang = (num = "09") => {
   } catch (error) {
     console.error("Error converting number to Bangla:", error);
     return "";
+  }
+};
+var numBang = (num = "09") => {
+  var _a, _b;
+  if (!((_a = num == null ? void 0 : num.toString()) == null ? void 0 : _a.includes("-"))) {
+    return numberParser(num);
+  } else {
+    let posNum = (_b = num == null ? void 0 : num.toString()) == null ? void 0 : _b.replace("-", "");
+    return `- ${numberParser(posNum)}`;
   }
 };
 var numBang_default = numBang;
@@ -173,6 +232,40 @@ var dateBang = (engDate = "2023-07-03", separator = "/", format = "D/M/YY") => {
   }
 };
 var dateBang_default = dateBang;
+
+// src/utils/dayBang.ts
+var import_dayjs3 = __toESM(require("dayjs"));
+var numDayMap = {
+  0: `\u09B0\u09AC\u09BF\u09AC\u09BE\u09B0 `,
+  1: `\u09B8\u09C7\u09BE\u09AE\u09AC\u09BE\u09B0`,
+  2: `\u09AE\u0999\u09CD\u0997\u09B2\u09AC\u09BE\u09B0`,
+  3: "\u09AC\u09C1\u09A7\u09AC\u09BE\u09B0",
+  4: "\u09AC\u09C3\u09B9\u09B8\u09CD\u09AA\u09A4\u09BF\u09AC\u09BE\u09B0",
+  5: "\u09B6\u09C1\u0995\u09CD\u09B0\u09AC\u09BE\u09B0",
+  6: "\u09B6\u09A8\u09BF\u09AC\u09BE\u09B0"
+};
+var dayBang = (date = "1") => {
+  const dayNum = (0, import_dayjs3.default)(date).get("day");
+  try {
+    const splitDayNums = dayNum == null ? void 0 : dayNum.toString().split("");
+    if (!splitDayNums)
+      throw new Error("Invalid input");
+    const splitBnDays = [];
+    for (let i = 0; i < splitDayNums.length; i++) {
+      const bnDay = numDayMap[parseInt(splitDayNums[i])];
+      if (bnDay) {
+        splitBnDays.push(bnDay);
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+    return splitBnDays.join("");
+  } catch (error) {
+    console.error("Error converting day to Bangla:", error);
+    return "";
+  }
+};
+var dayBang_default = dayBang;
 
 // src/utils/numToBanglaWords.ts
 var NEGATIVE = "\u098B\u09A3\u09BE\u09A4\u09CD\u09AE\u0995";
@@ -308,7 +401,6 @@ var numToBanglaWords = (number) => {
         "Input is not a safe number, it\u2019s either too large or too small."
       );
     }
-    console.log(`Start converting ` + number + ` to Bengali words`);
     const num = parseInt(number.toString(), 10);
     words = generateWords(num);
     if (!isInt(number)) {
@@ -373,11 +465,100 @@ function isInt(n) {
   return n % 1 === 0;
 }
 var numToBanglaWords_default = numToBanglaWords;
+
+// src/utils/timeBang.ts
+var import_dayjs4 = __toESM(require("dayjs"));
+var numMap3 = {
+  0: "\u09E6",
+  1: "\u09E7",
+  2: "\u09E8",
+  3: "\u09E9",
+  4: "\u09EA",
+  5: "\u09EB",
+  6: "\u09EC",
+  7: "\u09ED",
+  8: "\u09EE",
+  9: "\u09EF"
+};
+var getShokalBikal = (num) => {
+  const mapping = {
+    0: "\u09A6\u09BF\u09AC\u09BE\u0997\u09A4 \u09B0\u09BE\u09A4",
+    1: "\u09A6\u09BF\u09AC\u09BE\u0997\u09A4 \u09B0\u09BE\u09A4",
+    2: "\u09A6\u09BF\u09AC\u09BE\u0997\u09A4 \u09B0\u09BE\u09A4",
+    3: "\u09A6\u09BF\u09AC\u09BE\u0997\u09A4 \u09B0\u09BE\u09A4",
+    4: "\u09AD\u09CB\u09B0",
+    5: "\u09AD\u09CB\u09B0",
+    6: "\u09B8\u0995\u09BE\u09B2",
+    7: "\u09B8\u0995\u09BE\u09B2",
+    8: "\u09B8\u0995\u09BE\u09B2",
+    9: "\u09B8\u0995\u09BE\u09B2",
+    10: "\u09B8\u0995\u09BE\u09B2",
+    11: "\u09B8\u0995\u09BE\u09B2",
+    12: "\u09A6\u09C1\u09AA\u09C1\u09B0",
+    13: "\u09A6\u09C1\u09AA\u09C1\u09B0",
+    14: "\u09A6\u09C1\u09AA\u09C1\u09B0",
+    15: "\u09A6\u09C1\u09AA\u09C1\u09B0",
+    16: "\u09AC\u09BF\u0995\u09C7\u09B2",
+    17: "\u09AC\u09BF\u0995\u09C7\u09B2",
+    18: "\u09B8\u09A8\u09CD\u09A7\u09CD\u09AF\u09BE",
+    19: "\u09B8\u09A8\u09CD\u09A7\u09CD\u09AF\u09BE",
+    20: "\u09B0\u09BE\u09A4",
+    21: "\u09B0\u09BE\u09A4",
+    22: "\u09B0\u09BE\u09A4",
+    23: "\u09B0\u09BE\u09A4",
+    24: "\u09B0\u09BE\u09A4"
+  };
+  return mapping[num];
+};
+var timeBang = (date = "2024-02-26T09:23:05.589Z", format = "detailed") => {
+  const hour = (0, import_dayjs4.default)(date).get("hour") > 12 ? (0, import_dayjs4.default)(date).get("hour") - 12 : (0, import_dayjs4.default)(date).get("hour") === 0 ? 12 : (0, import_dayjs4.default)(date).get("hour");
+  const minute = (0, import_dayjs4.default)(date).get("minute");
+  const num = `${hour}.${minute}`;
+  try {
+    const splitNums = num == null ? void 0 : num.toString().split(".");
+    if (!splitNums)
+      throw new Error("Invalid input");
+    const integerPart = splitNums[0].split("");
+    const decimalPart = splitNums[1] ? splitNums[1].split("") : [];
+    const integerBnNums = [];
+    for (let i = 0; i < integerPart.length; i++) {
+      const bnNum = numMap3[parseInt(integerPart[i])];
+      if (bnNum) {
+        integerBnNums.push(bnNum);
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+    let decimalBnNums = "";
+    for (let i = 0; i < decimalPart.length; i++) {
+      const bnNum = numMap3[parseInt(decimalPart[i])];
+      if (bnNum) {
+        decimalBnNums += bnNum;
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+    const formatWiseRes = {
+      detailed: `${getShokalBikal((0, import_dayjs4.default)(date).get("hour"))} ` + integerBnNums.join("") + " \u099F\u09BE" + (decimalBnNums ? ` ${decimalBnNums} \u09AE\u09BF\u09A8\u09BF\u099F` : " "),
+      normal: `${getShokalBikal((0, import_dayjs4.default)(date).get("hour"))} ` + integerBnNums.join("") + "." + (decimalBnNums ? `${decimalBnNums} \u09AE\u09BF\u09A8\u09BF\u099F` : "\u09E6\u09E6 "),
+      short: integerBnNums.join("") + "." + (decimalBnNums ? `${decimalBnNums} \u09AE\u09BF\u09A8\u09BF\u099F` : "\u09E6\u09E6 ")
+    };
+    const result = formatWiseRes[format];
+    return result;
+  } catch (error) {
+    console.error("Error converting time to Bangla:", error);
+    return "";
+  }
+};
+var timeBang_default = timeBang;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  currencyToBang,
   dateBang,
+  dayBang,
   monthBang,
   numBang,
-  numToBanglaWords
+  numToBanglaWords,
+  timeBang
 });
 //# sourceMappingURL=index.js.map
