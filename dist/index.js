@@ -53,7 +53,7 @@ var numMap = {
   8: "\u09EE",
   9: "\u09EF"
 };
-var currencyToBang = (num = "09") => {
+var currencyToBang = (num = "0") => {
   try {
     const splitNums = num == null ? void 0 : num.toString().split(".");
     if (!splitNums)
@@ -66,7 +66,7 @@ var currencyToBang = (num = "09") => {
       if (bnNum) {
         integerBnNums.push(bnNum);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid currency");
       }
     }
     let decimalBnNums = "";
@@ -75,7 +75,7 @@ var currencyToBang = (num = "09") => {
       if (bnNum) {
         decimalBnNums += bnNum;
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid currency");
       }
     }
     const result = integerBnNums.join("") + " \u099F\u09BE\u0995\u09BE" + (decimalBnNums ? ` ${decimalBnNums} \u09AA\u09DF\u09B8\u09BE` : " ");
@@ -108,7 +108,7 @@ var numMonthMap = {
   11: "\u09A8\u09AD\u09C7\u09AE\u09CD\u09AC\u09B0",
   12: "\u09A1\u09BF\u09B8\u09C7\u09AE\u09CD\u09AC\u09B0"
 };
-var monthBang = (date = "9") => {
+var monthBang = (date = "") => {
   const monthNum = (0, import_dayjs.default)(date).get("month") + 1;
   try {
     const splitMonthNums = monthNum == null ? void 0 : monthNum.toString().split("");
@@ -120,7 +120,7 @@ var monthBang = (date = "9") => {
       if (bnMonth) {
         splitBnMonths.push(bnMonth);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid month");
       }
     }
     return splitBnMonths.join("");
@@ -144,7 +144,7 @@ var numMap2 = {
   8: "\u09EE",
   9: "\u09EF"
 };
-var numberParser = (num = "09") => {
+var numberParser = (num = "") => {
   try {
     const splitNums = num == null ? void 0 : num.toString().split(".");
     if (!splitNums)
@@ -176,7 +176,7 @@ var numberParser = (num = "09") => {
     return "";
   }
 };
-var numBang = (num = "09") => {
+var numBang = (num = "") => {
   var _a, _b;
   if (!((_a = num == null ? void 0 : num.toString()) == null ? void 0 : _a.includes("-"))) {
     return numberParser(num);
@@ -217,7 +217,7 @@ var getFormatted = (format, separator, date) => {
   };
   return mapping[format];
 };
-var dateBang = (engDate = "2023-07-03", separator = "/", format = "D/M/YY") => {
+var dateBang = (engDate = "", separator = "/", format = "D/M/YY") => {
   try {
     if ((0, import_dayjs2.default)(engDate).isValid()) {
       const bdDate = getFormatted(format, separator, engDate);
@@ -244,7 +244,7 @@ var numDayMap = {
   5: "\u09B6\u09C1\u0995\u09CD\u09B0\u09AC\u09BE\u09B0",
   6: "\u09B6\u09A8\u09BF\u09AC\u09BE\u09B0"
 };
-var dayBang = (date = "1") => {
+var dayBang = (date = "") => {
   const dayNum = (0, import_dayjs3.default)(date).get("day");
   try {
     const splitDayNums = dayNum == null ? void 0 : dayNum.toString().split("");
@@ -256,7 +256,7 @@ var dayBang = (date = "1") => {
       if (bnDay) {
         splitBnDays.push(bnDay);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid day");
       }
     }
     return splitBnDays.join("");
@@ -510,7 +510,7 @@ var getShokalBikal = (num) => {
   };
   return mapping[num];
 };
-var timeBang = (date = "2024-02-26T09:23:05.589Z", format = "detailed") => {
+var timeBang = (date = (/* @__PURE__ */ new Date()).toString(), format = "detailed") => {
   const hour = (0, import_dayjs4.default)(date).get("hour") > 12 ? (0, import_dayjs4.default)(date).get("hour") - 12 : (0, import_dayjs4.default)(date).get("hour") === 0 ? 12 : (0, import_dayjs4.default)(date).get("hour");
   const minute = (0, import_dayjs4.default)(date).get("minute");
   const num = `${hour}.${minute}`;
@@ -535,7 +535,7 @@ var timeBang = (date = "2024-02-26T09:23:05.589Z", format = "detailed") => {
       if (bnNum) {
         decimalBnNums += bnNum;
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid time");
       }
     }
     const formatWiseRes = {
