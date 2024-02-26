@@ -10,7 +10,7 @@ const numDayMap: { [key: number]: string } = {
   6: "শনিবার",
 };
 
-const dayBang = (date: string = "1"): string => {
+const dayBang = (date: string = ""): string => {
   const dayNum = dayjs(date).get("day");
   try {
     const splitDayNums: string[] | undefined = dayNum?.toString().split("");
@@ -22,7 +22,7 @@ const dayBang = (date: string = "1"): string => {
       if (bnDay) {
         splitBnDays.push(bnDay);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid day");
       }
     }
     return splitBnDays.join("");

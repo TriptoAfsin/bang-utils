@@ -11,7 +11,7 @@ const numMap: { [key: number]: string } = {
   9: "৯",
 };
 
-const currencyToBang = (num: string = "09"): string => {
+const currencyToBang = (num: string = "0"): string => {
   try {
     const splitNums: string[] | undefined = num?.toString().split(".");
     if (!splitNums) throw new Error("Invalid input");
@@ -25,7 +25,7 @@ const currencyToBang = (num: string = "09"): string => {
       if (bnNum) {
         integerBnNums.push(bnNum);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid currency");
       }
     }
 
@@ -35,7 +35,7 @@ const currencyToBang = (num: string = "09"): string => {
       if (bnNum) {
         decimalBnNums += bnNum;
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid currency");
       }
     }
 

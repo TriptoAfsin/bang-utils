@@ -47,7 +47,7 @@ const getShokalBikal = (num: number) => {
 type TimeFormat = "detailed" | "short" | "normal";
 
 const timeBang = (
-  date: string = "2024-02-26T09:23:05.589Z",
+  date: string = new Date().toString(),
   format: TimeFormat = "detailed"
 ): string => {
   const hour =
@@ -81,7 +81,7 @@ const timeBang = (
       if (bnNum) {
         decimalBnNums += bnNum;
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid time");
       }
     }
 

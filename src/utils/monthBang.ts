@@ -15,7 +15,7 @@ const numMonthMap: { [key: number]: string } = {
   12: "ডিসেম্বর",
 };
 
-const monthBang = (date: string = "9"): string => {
+const monthBang = (date: string = ""): string => {
   const monthNum = dayjs(date).get("month") + 1;
   try {
     const splitMonthNums: string[] | undefined = monthNum?.toString().split("");
@@ -27,7 +27,7 @@ const monthBang = (date: string = "9"): string => {
       if (bnMonth) {
         splitBnMonths.push(bnMonth);
       } else {
-        throw new Error("Invalid number");
+        throw new Error("Invalid month");
       }
     }
     return splitBnMonths.join("");

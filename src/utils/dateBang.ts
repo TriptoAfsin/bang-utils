@@ -49,7 +49,7 @@ const getFormatted = (
 };
 
 const dateBang = (
-  engDate: string = "2023-07-03",
+  engDate: string = "",
   separator: string = "/",
   format: DateFormatType = "D/M/YY"
 ): string | void => {

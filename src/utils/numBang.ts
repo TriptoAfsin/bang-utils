@@ -11,7 +11,7 @@ const numMap: { [key: number]: string } = {
   9: "৯",
 };
 
-const numberParser = (num: string = "09"): string => {
+const numberParser = (num: string = ""): string => {
   try {
     const splitNums: string[] | undefined = num?.toString().split(".");
     if (!splitNums) throw new Error("Invalid input");
@@ -48,7 +48,7 @@ const numberParser = (num: string = "09"): string => {
   }
 };
 
-const numBang = (num: string = "09"): string => {
+const numBang = (num: string = ""): string => {
   if (!num?.toString()?.includes("-")) {
     return numberParser(num);
   } else {
