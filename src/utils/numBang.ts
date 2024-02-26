@@ -11,7 +11,7 @@ const numMap: { [key: number]: string } = {
   9: "৯",
 };
 
-const numBang = (num: string = "09"): string => {
+const numberParser = (num: string = "09"): string => {
   try {
     const splitNums: string[] | undefined = num?.toString().split(".");
     if (!splitNums) throw new Error("Invalid input");
@@ -45,6 +45,15 @@ const numBang = (num: string = "09"): string => {
   } catch (error) {
     console.error("Error converting number to Bangla:", error);
     return "";
+  }
+};
+
+const numBang = (num: string = "09"): string => {
+  if (!num?.toString()?.includes("-")) {
+    return numberParser(num);
+  } else {
+    let posNum = num?.toString()?.replace("-", "");
+    return `- ${numberParser(posNum)}`;
   }
 };
 
