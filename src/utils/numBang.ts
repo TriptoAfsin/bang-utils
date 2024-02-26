@@ -13,19 +13,35 @@ const numMap: { [key: number]: string } = {
 
 const numBang = (num: string = "09"): string => {
   try {
-    const splitNums: string[] | undefined = num?.toString().split("");
+    const splitNums: string[] | undefined = num?.toString().split(".");
     if (!splitNums) throw new Error("Invalid input");
 
-    const splitBnNums: string[] = [];
-    for (let i = 0; i < splitNums.length; i++) {
-      const bnNum = numMap[parseInt(splitNums[i])];
+    const integerPart = splitNums[0].split("");
+    const decimalPart = splitNums[1] ? splitNums[1].split("") : [];
+
+    const integerBnNums: string[] = [];
+    for (let i = 0; i < integerPart.length; i++) {
+      const bnNum = numMap[parseInt(integerPart[i])];
       if (bnNum) {
-        splitBnNums.push(bnNum);
+        integerBnNums.push(bnNum);
       } else {
         throw new Error("Invalid number");
       }
     }
-    return splitBnNums.join("");
+
+    let decimalBnNums: string = "";
+    for (let i = 0; i < decimalPart.length; i++) {
+      const bnNum = numMap[parseInt(decimalPart[i])];
+      if (bnNum) {
+        decimalBnNums += bnNum;
+      } else {
+        throw new Error("Invalid number");
+      }
+    }
+
+    const result =
+      integerBnNums.join("") + (decimalBnNums ? "." + decimalBnNums : "");
+    return result;
   } catch (error) {
     console.error("Error converting number to Bangla:", error);
     return "";
