@@ -140,7 +140,7 @@ const numToBanglaWords = (number: number): string => {
       );
     }
 
-    console.log(`Start converting ` + number + ` to Bengali words`);
+    // console.log(`Start converting ` + number + ` to Bengali words`);
 
     const num: number = parseInt(number.toString(), 10);
     words = generateWords(num);
