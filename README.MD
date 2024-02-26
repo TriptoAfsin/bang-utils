@@ -2,6 +2,8 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/TriptoAfsin/bang-utils/main/bang-utils-logo.png" width="256px" alt="Logo"></img></p>
 
+**Made in 🇧🇩(Bangladesh) with 💖**
+
 ## Description
 
 bang-utils is a lightweight utility library for converting English numerals and dates to Bengali in TypeScript/ JavaScript. It provides functions to convert numbers, dates, and months from English to Bengali script.
